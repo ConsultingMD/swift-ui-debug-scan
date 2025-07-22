@@ -54,7 +54,8 @@ For even more detailed logging, enable verbose mode by setting the `SWIFTUI_DEBU
 - Thread details
 - System memory and processor usage
 - Uptime and elapsed time
-- Verbose mode is especially useful for diagnosing complex issues in large applications.
+
+Verbose mode is especially useful for diagnosing complex issues in large applications.
 
 ## Installation
 
