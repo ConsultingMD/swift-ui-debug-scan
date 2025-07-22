@@ -2,11 +2,11 @@ import Foundation
 import OSLog
 import SwiftUI
 
-private let logger = Logger(subsystem: "com.swift.instrument", category: "SwiftUI")
+private let logger = Logger(subsystem: "com.swift.ui.debug.scan", category: "SwiftUI")
 private let processInfo = ProcessInfo.processInfo
 
 private let isVerbose: Bool = {
-    guard let value = processInfo.environment["SWIFTUI_INSTRUMENT_VERBOSE"]?.lowercased() else {
+    guard let value = processInfo.environment["SWIFTUI_DEBUG_SCAN_VERBOSE"]?.lowercased() else {
         return false
     }
     return ["1", "true", "yes"].contains(value)
@@ -150,7 +150,7 @@ struct ViewInstrumentationModifier: ViewModifier {
 }
 
 package extension View {
-    func instrument(
+    func debugScan(
         _ label: String,
         file: StaticString = #file,
         fileID: StaticString = #fileID,
