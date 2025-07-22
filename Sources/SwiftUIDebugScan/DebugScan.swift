@@ -149,7 +149,7 @@ struct ViewInstrumentationModifier: ViewModifier {
     }
 }
 
-package extension View {
+public extension View {
     func debugScan(
         _ label: String,
         file: StaticString = #file,
@@ -166,4 +166,3 @@ package extension View {
         )
     }
 }
-
