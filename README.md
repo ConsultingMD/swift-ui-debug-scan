@@ -58,12 +58,32 @@ For even more detailed logging, enable verbose mode by setting the `SWIFTUI_DEBU
 
 ## Installation
 
-You can add swift-ui-debug-scan to your project using Swift Package Manager:
+Add this package to your project using Swift Package Manager:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/ConsultingMD/swift-ui-debug-scan", from: "0.0.1")
+]
+```
+
+Then add the dependency to your target:
+
+```swift
+.target(
+    name: "YourTarget",
+    dependencies: [
+        .product(name: "SwiftUIDebugScan", package: "swift-ui-debug-scan")
+    ]
+)
+```
+
+Alternatively, you can add the package directly in Xcode:
 
 1. Open your project in Xcode.
-2. Go to File > Add Packages.
-3. Enter the repository URL for SwiftUIDebugScan.
-4. Select the version or branch you want to use and add the package to your project.
+2. Navigate to `File > Add Packages`.
+3. Enter the repository URL: `https://github.com/ConsultingMD/swift-ui-debug-scan`.
+4. Choose the version or branch you want to use.
+5. Add the package to your desired target.
 
 ## Contributing
 
