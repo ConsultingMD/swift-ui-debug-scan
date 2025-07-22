@@ -60,7 +60,7 @@ func __dumpSUIDebugInfo() {
     let initialUptime = processInfo.systemUptime
     var lastThreadInfo = "N/A", lastStackSize = "N/A", lastTaskPriority = "N/A"
     let callStack = Thread.callStackSymbols
-    
+
     for (idx, symbol) in zip(callStack.indices, callStack) {
         let mangled = symbol.utf8.drop { $0 != UInt8(ascii: "$") }.prefix { $0 != UInt8(ascii: " ") }
         guard
@@ -76,7 +76,7 @@ func __dumpSUIDebugInfo() {
         } else {
             (Thread.current.name?.isEmpty == true ? "\(Thread.current.description)" : Thread.current.name) ?? "unknown"
         }
-        
+
         logger.debug("""
         🧩 Stack #\(frameNumber)
             • 🧵 threadID: \(threadID)
@@ -88,7 +88,7 @@ func __dumpSUIDebugInfo() {
         lastStackSize = ByteCountFormatter().string(for: Thread.current.stackSize)!
         lastTaskPriority = Task.currentPriority.label
     }
-    
+
     let osThreadInfo = """
     💻 OS
         • 🧵 thread: \(lastThreadInfo)
@@ -104,7 +104,7 @@ func __dumpSUIDebugInfo() {
 
 private actor RenderState: ObservableObject {
     private var renderCount = 0
-    
+
     func record() -> Int {
         renderCount += 1
         return renderCount
@@ -131,7 +131,7 @@ struct ViewInstrumentationModifier: ViewModifier {
             __dumpSUIDebugInfo()
         }
     }
-    
+
     @ViewBuilder
     func body(content: Content) -> some View {
         content
@@ -150,6 +150,23 @@ struct ViewInstrumentationModifier: ViewModifier {
 }
 
 public extension View {
+    /// Adds a debug instrumentation modifier to the view for logging and tracking render information.
+    ///
+    /// Use this modifier to gain insights into the rendering behavior of your SwiftUI views. It logs details such as
+    /// the file, module, redraw count, and timestamp for each render pass. This can be particularly useful for debugging
+    /// and discoverability analysis during development.
+    ///
+    /// - Important: For the best logging experience, it is recommended to apply this modifier to **root views**
+    ///   (e.g., the top-level view in your view hierarchy) rather than leaf views. Applying it to root views ensures
+    ///   that you capture the most meaningful and comprehensive debug information.
+    ///
+    /// - Parameters:
+    ///   - label: A descriptive label for the view being debugged. This label will appear in the logs to help identify the view.
+    ///   - file: The file where the view is defined. Defaults to the current file (`#file`).
+    ///   - fileID: The file ID where the view is defined. Defaults to the current file ID (`#fileID`).
+    ///   - filePath: The full file path where the view is defined. Defaults to the current file path (`#filePath`).
+    ///
+    /// - Returns: A modified view with debug instrumentation applied.
     func debugScan(
         _ label: String,
         file: StaticString = #file,
