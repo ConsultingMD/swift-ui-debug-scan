@@ -1,0 +1,70 @@
+# sui-debug-scan
+
+A Swift package designed to enhance your debugging experience with SwiftUI views by providing detailed and structured debug logging.
+
+
+## Why use sui-debug-scan?
+
+Debugging SwiftUI can often feel like navigating a maze, especially when trying to trace metadata such as the file a view belongs to, the module it was declared in, or how often it gets redrawn. This lack of visibility can be particularly challenging in large, server-driven UI applications where static data is sparse, and the codebase is unfamiliar.
+
+sui-debug-scan bridges this gap by offering structured, actionable insights into your SwiftUI views. With this tool, you can easily track view metadata, redraw counts, and other runtime information, making it easier to debug and optimize your SwiftUI applications.
+
+
+## How it Works
+
+The `.debugScan(_ label: String)` view modifier is the core of this library. By applying this modifier to your SwiftUI views, you can log structured debug information about the view's lifecycle and runtime behavior.
+
+```swift
+import SwiftUI
+import sui_debug_scan
+
+struct ContentView: View {
+    var body: some View {
+        Text("Some feature").debugScan("Content")
+    }
+}
+```
+
+## Sample Debug Output
+
+When running your app in debug mode, you'll see logs like the following in the console:
+
+```
+🧩 [Content]
+    • 📂 file: ContentView.swift
+    • 📚 module: MyApp
+    • 🎨 redraws: 1
+    • ⏱️ timestamp: 2025-07-21 14:05:40 +0000
+```
+
+## When to use `.debugScan`?
+
+Apply the `.debugScan(_ label: String)` modifier to root views rather than leaf views. This ensures you capture meaningful data about the overall structure and behavior of your app without overwhelming your logs with excessive detail.
+
+For example:
+
+- Use `.debugScan(_ label: String)` on the root view of a screen or a major container view.
+- Avoid applying it to small, frequently updated views unless necessary.
+
+## Verbose Mode
+
+For even more detailed logging, enable verbose mode by setting the `SWIFTUI_INSTRUMENT_VERBOSE` environment variable to true, yes, or 1. This will include additional runtime information such as:
+
+- Call stack symbols
+- Thread details
+- System memory and processor usage
+- Uptime and elapsed time
+- Verbose mode is especially useful for diagnosing complex issues in large applications.
+
+## Installation
+
+You can add sui-debug-scan to your project using Swift Package Manager:
+
+1. Open your project in Xcode.
+2. Go to File > Add Packages.
+3. Enter the repository URL for sui-debug-scan.
+4. Select the version or branch you want to use and add the package to your project.
+
+## Contributing
+
+Contributions are welcome! If you have ideas for new features, improvements, or bug fixes, feel free to open an issue or submit a pull request.
