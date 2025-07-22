@@ -1,13 +1,13 @@
-# sui-debug-scan
+# swift-ui-debug-scan
 
 A Swift package designed to enhance your debugging experience with SwiftUI views by providing detailed and structured debug logging.
 
 
-## Why use sui-debug-scan?
+## Why use swift-ui-debug-scan?
 
 Debugging SwiftUI can often feel like navigating a maze, especially when trying to trace metadata such as the file a view belongs to, the module it was declared in, or how often it gets redrawn. This lack of visibility can be particularly challenging in large, server-driven UI applications where static data is sparse, and the codebase is unfamiliar.
 
-sui-debug-scan bridges this gap by offering structured, actionable insights into your SwiftUI views. With this tool, you can easily track view metadata, redraw counts, and other runtime information, making it easier to debug and optimize your SwiftUI applications.
+swift-ui-debug-scan bridges this gap by offering structured, actionable insights into your SwiftUI views. With this tool, you can easily track view metadata, redraw counts, and other runtime information, making it easier to debug and optimize your SwiftUI applications.
 
 
 ## How it Works
@@ -16,7 +16,7 @@ The `.debugScan(_ label: String)` view modifier is the core of this library. By 
 
 ```swift
 import SwiftUI
-import sui_debug_scan
+import SwiftUIDebugScan
 
 struct ContentView: View {
     var body: some View {
@@ -48,7 +48,7 @@ For example:
 
 ## Verbose Mode
 
-For even more detailed logging, enable verbose mode by setting the `SWIFTUI_INSTRUMENT_VERBOSE` environment variable to true, yes, or 1. This will include additional runtime information such as:
+For even more detailed logging, enable verbose mode by setting the `SWIFTUI_DEBUG_SCAN_VERBOSE` environment variable to true, yes, or 1. This will include additional runtime information such as:
 
 - Call stack symbols
 - Thread details
@@ -58,11 +58,11 @@ For even more detailed logging, enable verbose mode by setting the `SWIFTUI_INST
 
 ## Installation
 
-You can add sui-debug-scan to your project using Swift Package Manager:
+You can add swift-ui-debug-scan to your project using Swift Package Manager:
 
 1. Open your project in Xcode.
 2. Go to File > Add Packages.
-3. Enter the repository URL for sui-debug-scan.
+3. Enter the repository URL for SwiftUIDebugScan.
 4. Select the version or branch you want to use and add the package to your project.
 
 ## Contributing
