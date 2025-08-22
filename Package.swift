@@ -16,11 +16,20 @@ let package = Package(
     products: [
         .library(name: "SwiftUIDebugScan", targets: ["SwiftUIDebugScan"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/nalexn/ViewInspector", from: "0.9.0"),
+    ],
     targets: [
         .target(
             name: "SwiftUIDebugScan",
             dependencies: [],
+        ),
+        .testTarget(
+            name: "SwiftUIDebugScanTests",
+            dependencies: [
+                "SwiftUIDebugScan",
+                .product(name: "ViewInspector", package: "ViewInspector")
+            ]
         ),
     ],
     swiftLanguageModes: [.v6]
