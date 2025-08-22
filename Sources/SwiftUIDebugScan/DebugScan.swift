@@ -22,7 +22,7 @@ private func swift_demangle(
     flags: UInt32
 ) -> UnsafeMutablePointer<CChar>?
 
-fileprivate extension String {
+internal extension String {
     var demangled: String? {
         utf8CString.withUnsafeBufferPointer {
             guard let ptr = swift_demangle(
@@ -39,7 +39,7 @@ fileprivate extension String {
     }
 }
 
-fileprivate extension TaskPriority {
+internal extension TaskPriority {
     var label: String {
         switch self.rawValue {
         case 9: "background"
@@ -102,7 +102,7 @@ func __dumpSUIDebugInfo() {
 #endif
 }
 
-private actor RenderState: ObservableObject {
+internal actor RenderState: ObservableObject {
     private var renderCount = 0
 
     func record() -> Int {
