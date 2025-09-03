@@ -23,6 +23,10 @@ let package = Package(
         .target(
             name: "SwiftUIDebugScan",
             dependencies: [],
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency"),
+                .define("BUILD_LIBRARY_FOR_DISTRIBUTION", .when(configuration: .release)),
+            ]
         ),
         .testTarget(
             name: "SwiftUIDebugScanTests",
