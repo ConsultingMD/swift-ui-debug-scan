@@ -1,46 +1,59 @@
-name: Security
+# Security Workflow - CURRENTLY DISABLED
+# 
+# This workflow is commented out because it requires Code Security/Code Scanning 
+# to be enabled in the repository settings.
+#
+# To enable this workflow:
+# 1. Go to your repository Settings > Security & analysis
+# 2. Enable "Code scanning" 
+# 3. Uncomment this entire file
+# 4. The workflow provides automated security scanning with CodeQL
+#
+# For more information: https://docs.github.com/en/code-security/code-scanning
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  schedule:
-    # Run weekly security scans
-    - cron: '0 2 * * 1'
+# name: Security
 
-jobs:
-  codeql:
-    name: CodeQL Analysis
-    runs-on: macos-14
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-      
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'swift' ]
-        
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: ${{ matrix.language }}
-        
-    - name: Select Xcode Version
-      run: sudo xcode-select -s /Applications/Xcode_16.1.app/Contents/Developer
-      
-    - name: Build for CodeQL
-      run: |
-        swift package resolve
-        swift build --configuration release
-        
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
-      with:
-        category: "/language:${{matrix.language}}"
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+#   schedule:
+#     # Run weekly security scans
+#     - cron: '0 2 * * 1'
+
+# jobs:
+#   codeql:
+#     name: CodeQL Analysis
+#     runs-on: macos-14
+#     permissions:
+#       actions: read
+#       contents: read
+#       security-events: write
+#       
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         language: [ 'swift' ]
+#         
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v4
+#       
+#     - name: Initialize CodeQL
+#       uses: github/codeql-action/init@v3
+#       with:
+#         languages: ${{ matrix.language }}
+#         
+#     - name: Select Xcode Version
+#       run: sudo xcode-select -s /Applications/Xcode_16.1.app/Contents/Developer
+#       
+#     - name: Build for CodeQL
+#       run: |
+#         swift package resolve
+#         swift build --configuration release
+#         
+#     - name: Perform CodeQL Analysis
+#       uses: github/codeql-action/analyze@v3
+#       with:
+#         category: "/language:${{matrix.language}}"

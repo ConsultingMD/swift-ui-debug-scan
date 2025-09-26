@@ -28,9 +28,7 @@ This document explains the Continuous Integration and Continuous Deployment setu
 **Purpose**: Maintain code quality and standards
 
 **Checks**:
-- Swift Format validation (non-destructive)
 - Swift Package validation with diagnostics
-- Dependency auditing
 
 ### 3. Release Workflow (`.github/workflows/release.yml`)
 
@@ -44,16 +42,19 @@ This document explains the Continuous Integration and Continuous Deployment setu
 - GitHub release creation with artifacts
 - Prerelease detection (alpha, beta, rc tags)
 
-### 4. Security Workflows (`.github/workflows/security.yml`)
+### 4. Security Workflows (`.github/workflows/security.yml`) - CURRENTLY DISABLED
 
-**Triggers**: PRs, main branch pushes, and weekly schedule
+**Status**: Commented out - requires Code Security/Code Scanning to be enabled
+**Triggers**: PRs, main branch pushes, and weekly schedule (when enabled)
 **Purpose**: Security scanning and vulnerability detection
 
-**Features**:
-- Dependency security auditing
-- CodeQL static analysis for Swift code
-- SARIF results upload
+**Features (when enabled)**:
+- CodeQL static analysis for Swift code security
 - Weekly automated security scans
+- Integration with GitHub Security tab
+- SARIF output format for security findings
+
+**To enable**: Uncomment the workflow after enabling Code Scanning in repository settings
 
 ## Configuration Files
 
@@ -77,10 +78,10 @@ This document explains the Continuous Integration and Continuous Deployment setu
 
 ## Key Features Inspired by member-ios-app
 
-1. **Comprehensive Platform Testing**: Tests on all supported Apple platforms
-2. **Matrix Strategy**: Multiple Swift/Xcode version combinations
+1. **Comprehensive Testing**: Native macOS Swift testing with code coverage
+2. **Code Quality**: Swift package validation and diagnostics
 3. **Caching**: Aggressive SPM caching for performance
-4. **Security**: Weekly security scans and dependency auditing
+4. **Security**: CodeQL security scanning (currently disabled - enable Code Scanning in repo settings)
 5. **Release Automation**: Comprehensive release process with artifacts
 
 ## Environment Variables Used
@@ -124,5 +125,5 @@ swift build --configuration release
 
 - **CI Status**: Monitor via GitHub Actions tab
 - **Coverage**: Check Codecov reports on PRs
-- **Security**: Review weekly security scan results
+- **Security**: Currently disabled (enable Code Scanning to activate)
 - **Dependencies**: Dependabot will create PRs for updates

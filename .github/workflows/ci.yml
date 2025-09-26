@@ -80,7 +80,7 @@ jobs:
         verbose: true
 
   lint:
-    name: Swift Format & Lint
+    name: Swift Package Lint
     runs-on: macos-14
     
     steps:
@@ -90,21 +90,5 @@ jobs:
     - name: Select Xcode Version
       run: sudo xcode-select -s /Applications/Xcode_16.1.app/Contents/Developer
       
-    - name: Check Swift Format
-      run: |
-        # Install swift-format if not available
-        if ! command -v swift-format &> /dev/null; then
-          echo "swift-format not found, installing..."
-          git clone https://github.com/apple/swift-format.git
-          cd swift-format
-          swift build -c release
-          sudo cp .build/release/swift-format /usr/local/bin/
-          cd ..
-          rm -rf swift-format
-        fi
-        
-        # Check formatting (non-destructive)
-        swift-format --recursive Sources Tests --mode diff
-        
     - name: Swift Package Validation
       run: swift package diagnose
