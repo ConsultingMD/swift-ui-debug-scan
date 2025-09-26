@@ -1,5 +1,11 @@
 # swift-ui-debug-scan
 
+[![CI](https://github.com/ConsultingMD/swift-ui-debug-scan/workflows/CI/badge.svg)](https://github.com/ConsultingMD/swift-ui-debug-scan/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/ConsultingMD/swift-ui-debug-scan)](https://github.com/ConsultingMD/swift-ui-debug-scan/releases)
+[![codecov](https://codecov.io/gh/ConsultingMD/swift-ui-debug-scan/branch/main/graph/badge.svg)](https://codecov.io/gh/ConsultingMD/swift-ui-debug-scan)
+[![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
+[![Platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20visionOS-lightgrey.svg)](https://github.com/ConsultingMD/swift-ui-debug-scan)
+
 A Swift package designed to enhance your debugging experience with SwiftUI views by providing detailed and structured debug logging.
 
 
