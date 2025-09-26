@@ -27,21 +27,21 @@ jobs:
             platform: ios-simulator
             swift: "6.0"
             xcode: "16.1"
-            destination: "platform=iOS Simulator,name=iPhone 15,OS=latest"
+            destination: "platform=iOS Simulator,name=Any iOS Simulator Device"
             
           # tvOS Simulator
           - os: macos-14
             platform: tvos-simulator
             swift: "6.0"
             xcode: "16.1"
-            destination: "platform=tvOS Simulator,name=Apple TV,OS=latest"
+            destination: "platform=tvOS Simulator,name=Any tvOS Simulator Device"
             
-          # visionOS Simulator (only on newer Xcode versions)
+          # visionOS Simulator
           - os: macos-14
             platform: visionos-simulator
             swift: "6.0"
             xcode: "16.1"
-            destination: "platform=visionOS Simulator,name=Apple Vision Pro,OS=latest"
+            destination: "platform=visionOS Simulator,name=Any visionOS Simulator Device"
 
     runs-on: ${{ matrix.os }}
     
