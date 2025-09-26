@@ -78,6 +78,12 @@ jobs:
     - name: Resolve Dependencies
       run: swift package resolve
       
+    - name: List Available Schemes (Debug)
+      if: matrix.platform != 'macos'
+      run: |
+        echo "=== Available schemes ==="
+        xcodebuild -list || echo "Could not list schemes"
+        
     - name: Build (macOS)
       if: matrix.platform == 'macos'
       run: swift build --verbose
@@ -93,7 +99,7 @@ jobs:
       if: matrix.platform != 'macos'
       run: |
         xcodebuild build \
-          -scheme SwiftUIDebugScan \
+          -scheme swift-ui-debug-scan \
           -destination "${{ matrix.destination }}" \
           -skipPackagePluginValidation \
           -skipMacroValidation \
@@ -104,7 +110,7 @@ jobs:
       if: matrix.platform != 'macos'
       run: |
         xcodebuild test \
-          -scheme SwiftUIDebugScan \
+          -scheme swift-ui-debug-scan \
           -destination "${{ matrix.destination }}" \
           -skipPackagePluginValidation \
           -skipMacroValidation \
