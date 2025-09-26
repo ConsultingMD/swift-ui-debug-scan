@@ -1,0 +1,195 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test
+    strategy:
+      matrix:
+        include:
+          # macOS
+          - os: macos-14
+            platform: macos
+            swift: "6.0"
+            xcode: "16.1"
+          - os: macos-13
+            platform: macos
+            swift: "5.9"
+            xcode: "15.4"
+            
+          # iOS Simulator
+          - os: macos-14
+            platform: ios-simulator
+            swift: "6.0"
+            xcode: "16.1"
+            destination: "platform=iOS Simulator,name=iPhone 15,OS=18.1"
+          - os: macos-13
+            platform: ios-simulator
+            swift: "5.9"
+            xcode: "15.4"
+            destination: "platform=iOS Simulator,name=iPhone 15,OS=17.5"
+            
+          # tvOS Simulator
+          - os: macos-14
+            platform: tvos-simulator
+            swift: "6.0"
+            xcode: "16.1"
+            destination: "platform=tvOS Simulator,name=Apple TV,OS=18.1"
+            
+          # watchOS Simulator
+          - os: macos-14
+            platform: watchos-simulator
+            swift: "6.0"
+            xcode: "16.1"
+            destination: "platform=watchOS Simulator,name=Apple Watch Series 10 (46mm),OS=11.1"
+            
+          # visionOS Simulator (only on newer Xcode versions)
+          - os: macos-14
+            platform: visionos-simulator
+            swift: "6.0"
+            xcode: "16.1"
+            destination: "platform=visionOS Simulator,name=Apple Vision Pro,OS=2.1"
+
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Select Xcode Version
+      run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
+      
+    - name: Show Swift Version
+      run: swift --version
+      
+    - name: Show Xcode Version
+      run: xcodebuild -version
+      
+    - name: Cache Swift Package Manager
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/Library/Caches/org.swift.swiftpm/
+          ~/.cache/org.swift.swiftpm/
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-
+          
+    - name: Resolve Dependencies
+      run: swift package resolve
+      
+    - name: Build (macOS)
+      if: matrix.platform == 'macos'
+      run: swift build --verbose
+      
+    - name: Test (macOS)
+      if: matrix.platform == 'macos'
+      run: |
+        swift test --verbose --enable-code-coverage --parallel
+      env:
+        SWIFTUI_DEBUG_SCAN_VERBOSE: "1"
+        
+    - name: Build (iOS/tvOS/watchOS/visionOS Simulator)
+      if: matrix.platform != 'macos'
+      run: |
+        xcodebuild build \
+          -scheme SwiftUIDebugScan \
+          -destination "${{ matrix.destination }}" \
+          -skipPackagePluginValidation \
+          -skipMacroValidation \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGNING_ALLOWED=NO
+          
+    - name: Test (iOS/tvOS/watchOS/visionOS Simulator)
+      if: matrix.platform != 'macos'
+      run: |
+        xcodebuild test \
+          -scheme SwiftUIDebugScan \
+          -destination "${{ matrix.destination }}" \
+          -skipPackagePluginValidation \
+          -skipMacroValidation \
+          -resultBundlePath TestResults \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGNING_ALLOWED=NO \
+          ENABLE_CODE_COVERAGE=YES
+      env:
+        SWIFTUI_DEBUG_SCAN_VERBOSE: "1"
+        
+    - name: Generate Code Coverage (macOS only)
+      if: matrix.platform == 'macos' && matrix.swift == '6.0'
+      run: |
+        xcrun llvm-cov export \
+          .build/debug/swift-ui-debug-scanPackageTests.xctest/Contents/MacOS/swift-ui-debug-scanPackageTests \
+          -instr-profile .build/debug/codecov/default.profdata \
+          -format="lcov" > coverage.lcov
+          
+    - name: Upload Code Coverage
+      if: matrix.platform == 'macos' && matrix.swift == '6.0'
+      uses: codecov/codecov-action@v4
+      with:
+        file: coverage.lcov
+        fail_ci_if_error: false
+        verbose: true
+
+  lint:
+    name: Swift Format & Lint
+    runs-on: macos-14
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Select Xcode Version
+      run: sudo xcode-select -s /Applications/Xcode_16.1.app/Contents/Developer
+      
+    - name: Check Swift Format
+      run: |
+        # Install swift-format if not available
+        if ! command -v swift-format &> /dev/null; then
+          echo "swift-format not found, installing..."
+          git clone https://github.com/apple/swift-format.git
+          cd swift-format
+          swift build -c release
+          sudo cp .build/release/swift-format /usr/local/bin/
+          cd ..
+          rm -rf swift-format
+        fi
+        
+        # Check formatting (non-destructive)
+        swift-format --recursive Sources Tests --mode diff
+        
+    - name: Swift Package Validation
+      run: swift package diagnose
+
+  documentation:
+    name: Documentation
+    runs-on: macos-14
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Select Xcode Version
+      run: sudo xcode-select -s /Applications/Xcode_16.1.app/Contents/Developer
+      
+    - name: Build Documentation
+      run: |
+        swift package generate-documentation \
+          --target SwiftUIDebugScan \
+          --output-path ./docs \
+          --hosting-base-path swift-ui-debug-scan
+          
+    - name: Upload Documentation Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: documentation
+        path: docs/
