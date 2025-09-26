@@ -21,10 +21,6 @@ jobs:
             platform: macos
             swift: "6.0"
             xcode: "16.1"
-          - os: macos-13
-            platform: macos
-            swift: "5.9"
-            xcode: "15.2"
             
           # iOS Simulator
           - os: macos-14
@@ -32,11 +28,6 @@ jobs:
             swift: "6.0"
             xcode: "16.1"
             destination: "platform=iOS Simulator,name=iPhone 15,OS=18.1"
-          - os: macos-13
-            platform: ios-simulator
-            swift: "5.9"
-            xcode: "15.2"
-            destination: "platform=iOS Simulator,name=iPhone 15,OS=17.5"
             
           # tvOS Simulator
           - os: macos-14
