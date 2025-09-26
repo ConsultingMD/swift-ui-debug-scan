@@ -51,12 +51,28 @@ jobs:
         
     - name: Generate Code Coverage
       run: |
+        # Find the actual test executable (SPM naming can vary)
+        TEST_EXECUTABLE=$(find .build/debug -name "*PackageTests.xctest" -type d | head -1)
+        if [ -z "$TEST_EXECUTABLE" ]; then
+          echo "No test executable found, skipping coverage"
+          exit 0
+        fi
+        
+        EXECUTABLE_NAME=$(basename "$TEST_EXECUTABLE" .xctest)
+        EXECUTABLE_PATH="$TEST_EXECUTABLE/Contents/MacOS/$EXECUTABLE_NAME"
+        
+        if [ ! -f "$EXECUTABLE_PATH" ]; then
+          echo "Test executable not found at $EXECUTABLE_PATH, skipping coverage"
+          exit 0
+        fi
+        
         xcrun llvm-cov export \
-          .build/debug/swift-ui-debug-scanPackageTests.xctest/Contents/MacOS/swift-ui-debug-scanPackageTests \
+          "$EXECUTABLE_PATH" \
           -instr-profile .build/debug/codecov/default.profdata \
           -format="lcov" > coverage.lcov
           
     - name: Upload Code Coverage
+      if: hashFiles('coverage.lcov') != ''
       uses: codecov/codecov-action@v4
       with:
         file: coverage.lcov

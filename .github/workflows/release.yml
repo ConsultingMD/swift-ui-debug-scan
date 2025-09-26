@@ -34,7 +34,7 @@ jobs:
         # Try to extract release notes from CHANGELOG.md if it exists
         if [ -f CHANGELOG.md ]; then
           # Extract content between the first two version headers
-          VERSION_LINE=$(grep -n "^## \[*${{ github.ref_name }}" CHANGELOG.md | head -1 | cut -d: -f1)
+          VERSION_LINE=$(grep -n "^## \[?${{ github.ref_name }}\]?" CHANGELOG.md | head -1 | cut -d: -f1)
           if [ ! -z "$VERSION_LINE" ]; then
             NEXT_VERSION_LINE=$(tail -n +$((VERSION_LINE + 1)) CHANGELOG.md | grep -n "^## " | head -1 | cut -d: -f1)
             if [ ! -z "$NEXT_VERSION_LINE" ]; then
