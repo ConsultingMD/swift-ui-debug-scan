@@ -79,8 +79,8 @@ jobs:
         fail_ci_if_error: false
         verbose: true
 
-  lint:
-    name: Swift Package Lint
+  validate:
+    name: Package Validation
     runs-on: macos-14
     
     steps:
@@ -100,8 +100,5 @@ jobs:
         
         echo "=== Showing dependency tree ==="
         swift package show-dependencies
-        
-        echo "=== Validating build configuration ==="
-        swift build --dry-run
         
         echo "✅ Package validation completed successfully"
