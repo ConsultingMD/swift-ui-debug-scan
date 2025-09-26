@@ -27,28 +27,21 @@ jobs:
             platform: ios-simulator
             swift: "6.0"
             xcode: "16.1"
-            destination: "platform=iOS Simulator,name=iPhone 15,OS=18.1"
+            destination: "platform=iOS Simulator,name=iPhone 15,OS=latest"
             
           # tvOS Simulator
           - os: macos-14
             platform: tvos-simulator
             swift: "6.0"
             xcode: "16.1"
-            destination: "platform=tvOS Simulator,name=Apple TV,OS=18.1"
-            
-          # watchOS Simulator
-          - os: macos-14
-            platform: watchos-simulator
-            swift: "6.0"
-            xcode: "16.1"
-            destination: "platform=watchOS Simulator,name=Apple Watch Series 10 (46mm),OS=11.1"
+            destination: "platform=tvOS Simulator,name=Apple TV,OS=latest"
             
           # visionOS Simulator (only on newer Xcode versions)
           - os: macos-14
             platform: visionos-simulator
             swift: "6.0"
             xcode: "16.1"
-            destination: "platform=visionOS Simulator,name=Apple Vision Pro,OS=2.1"
+            destination: "platform=visionOS Simulator,name=Apple Vision Pro,OS=latest"
 
     runs-on: ${{ matrix.os }}
     
@@ -78,12 +71,6 @@ jobs:
     - name: Resolve Dependencies
       run: swift package resolve
       
-    - name: List Available Schemes (Debug)
-      if: matrix.platform != 'macos'
-      run: |
-        echo "=== Available schemes ==="
-        xcodebuild -list || echo "Could not list schemes"
-        
     - name: Build (macOS)
       if: matrix.platform == 'macos'
       run: swift build --verbose
