@@ -91,4 +91,17 @@ jobs:
       run: sudo xcode-select -s /Applications/Xcode_16.1.app/Contents/Developer
       
     - name: Swift Package Validation
-      run: swift package diagnose
+      run: |
+        echo "=== Validating Package.swift syntax ==="
+        swift package dump-package > /dev/null
+        
+        echo "=== Resolving dependencies ==="
+        swift package resolve
+        
+        echo "=== Showing dependency tree ==="
+        swift package show-dependencies
+        
+        echo "=== Validating build configuration ==="
+        swift build --dry-run
+        
+        echo "✅ Package validation completed successfully"

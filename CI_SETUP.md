@@ -28,7 +28,10 @@ This document explains the Continuous Integration and Continuous Deployment setu
 **Purpose**: Maintain code quality and standards
 
 **Checks**:
-- Swift Package validation with diagnostics
+- Package.swift syntax validation
+- Dependency resolution verification
+- Dependency tree analysis  
+- Build configuration validation (dry run)
 
 ### 3. Release Workflow (`.github/workflows/release.yml`)
 
@@ -79,7 +82,7 @@ This document explains the Continuous Integration and Continuous Deployment setu
 ## Key Features Inspired by member-ios-app
 
 1. **Comprehensive Testing**: Native macOS Swift testing with code coverage
-2. **Code Quality**: Swift package validation and diagnostics
+2. **Code Quality**: Swift package validation and dependency analysis
 3. **Caching**: Aggressive SPM caching for performance
 4. **Security**: CodeQL security scanning (currently disabled - enable Code Scanning in repo settings)
 5. **Release Automation**: Comprehensive release process with artifacts
