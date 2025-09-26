@@ -39,24 +39,12 @@ This document explains the Continuous Integration and Continuous Deployment setu
 
 **Features**:
 - Full validation (build + test) before release
-- Documentation generation and packaging
 - Source archive creation
 - Release notes extraction from CHANGELOG.md
 - GitHub release creation with artifacts
 - Prerelease detection (alpha, beta, rc tags)
 
-### 4. Documentation Workflow (`.github/workflows/documentation.yml`)
-
-**Triggers**: Main branch pushes, releases, and manual dispatch
-**Purpose**: Generate and deploy documentation to GitHub Pages
-
-**Features**:
-- Swift DocC documentation generation
-- GitHub Pages deployment
-- Static hosting transformation
-- Swift Package Manager caching
-
-### 5. Security Workflows (`.github/workflows/security.yml`)
+### 4. Security Workflows (`.github/workflows/security.yml`)
 
 **Triggers**: PRs, main branch pushes, and weekly schedule
 **Purpose**: Security scanning and vulnerability detection
@@ -93,8 +81,7 @@ This document explains the Continuous Integration and Continuous Deployment setu
 2. **Matrix Strategy**: Multiple Swift/Xcode version combinations
 3. **Caching**: Aggressive SPM caching for performance
 4. **Security**: Weekly security scans and dependency auditing
-5. **Documentation**: Automated doc generation and deployment
-6. **Release Automation**: Comprehensive release process with artifacts
+5. **Release Automation**: Comprehensive release process with artifacts
 
 ## Environment Variables Used
 
@@ -133,18 +120,9 @@ swift build --configuration release
    ```
 3. GitHub Actions will automatically create the release
 
-### Manual Documentation Build
-```bash
-swift package generate-documentation \
-  --target SwiftUIDebugScan \
-  --output-path ./docs \
-  --hosting-base-path swift-ui-debug-scan
-```
-
 ## Monitoring and Maintenance
 
 - **CI Status**: Monitor via GitHub Actions tab
 - **Coverage**: Check Codecov reports on PRs
 - **Security**: Review weekly security scan results
 - **Dependencies**: Dependabot will create PRs for updates
-- **Documentation**: Auto-updated on main branch changes

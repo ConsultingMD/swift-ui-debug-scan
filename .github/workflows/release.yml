@@ -23,20 +23,10 @@ jobs:
         swift build --configuration release
         swift test --configuration release
         
-    - name: Build Documentation
-      run: |
-        swift package generate-documentation \
-          --target SwiftUIDebugScan \
-          --output-path ./docs \
-          --hosting-base-path swift-ui-debug-scan
-          
     - name: Create Release Archive
       run: |
         # Create source archive
         git archive --format=zip --prefix=swift-ui-debug-scan-${{ github.ref_name }}/ HEAD > swift-ui-debug-scan-${{ github.ref_name }}.zip
-        
-        # Create documentation archive
-        cd docs && zip -r ../swift-ui-debug-scan-docs-${{ github.ref_name }}.zip . && cd ..
         
     - name: Extract Release Notes
       id: extract-release-notes
@@ -68,7 +58,6 @@ jobs:
         body_path: release_notes.md
         files: |
           swift-ui-debug-scan-${{ github.ref_name }}.zip
-          swift-ui-debug-scan-docs-${{ github.ref_name }}.zip
         draft: false
         prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
       env:
