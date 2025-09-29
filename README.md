@@ -6,19 +6,9 @@
 [![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 [![Platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20visionOS-lightgrey.svg)](https://github.com/ConsultingMD/swift-ui-debug-scan)
 
-A Swift package designed to enhance your debugging experience with SwiftUI views by providing detailed and structured debug logging.
+**Enhanced SwiftUI debugging with structured view insights and render tracking.**
 
-
-## Why use swift-ui-debug-scan?
-
-Debugging SwiftUI can often feel like navigating a maze, especially when trying to trace metadata such as the file a view belongs to, the module it was declared in, or how often it gets redrawn. This lack of visibility can be particularly challenging in large, server-driven UI applications where static data is sparse, and the codebase is unfamiliar.
-
-swift-ui-debug-scan bridges this gap by offering structured, actionable insights into your SwiftUI views. With this tool, you can easily track view metadata, redraw counts, and other runtime information, making it easier to debug and optimize your SwiftUI applications.
-
-
-## How it Works
-
-The `.debugScan(_ label: String)` view modifier is the core of this library. By applying this modifier to your SwiftUI views, you can log structured debug information about the view's lifecycle and runtime behavior.
+## Quick Start
 
 ```swift
 import SwiftUI
@@ -26,72 +16,72 @@ import SwiftUIDebugScan
 
 struct ContentView: View {
     var body: some View {
-        Text("Some feature").debugScan("Content")
+        Text("Hello World").debugScan("MainView")
     }
 }
 ```
 
-## Sample Debug Output
-
-When running your app in debug mode, you'll see logs like the following in the console:
-
+**Console Output:**
 ```
-🧩 [Content]
+🧩 [MainView]
     • 📂 file: ContentView.swift
     • 📚 module: MyApp
     • 🎨 redraws: 1
     • ⏱️ timestamp: 2025-07-21 14:05:40 +0000
 ```
 
-## When to use `.debugScan`?
+## Why Use This?
 
-Apply the `.debugScan(_ label: String)` modifier to root views rather than leaf views. This ensures you capture meaningful data about the overall structure and behavior of your app without overwhelming your logs with excessive detail.
+- 🔍 **View Metadata**: Track file, module, and render counts
+- 🐛 **Debug Complex UIs**: Essential for large, server-driven applications  
+- ⚡ **Performance Insights**: Identify over-rendering and optimization opportunities
+- 🎯 **Targeted Debugging**: Focus on root views without log noise
 
-For example:
 
-- Use `.debugScan(_ label: String)` on the root view of a screen or a major container view.
-- Avoid applying it to small, frequently updated views unless necessary.
+## Usage Best Practices
 
-## Verbose Mode
+**✅ Apply to root views:**
+```swift
+NavigationView {
+    HomeScreen()
+}.debugScan("HomeNavigation")
+```
 
-For even more detailed logging, enable verbose mode by setting the `SWIFTUI_DEBUG_SCAN_VERBOSE` environment variable to true, yes, or 1. This will include additional runtime information such as:
+**❌ Avoid on leaf views:**
+```swift
+// Don't do this - too much noise
+Text("Button").debugScan("ButtonText")
+```
 
-- Call stack symbols
-- Thread details
-- System memory and processor usage
-- Uptime and elapsed time
+**💡 Recommended targets:**
+- Screen root views
+- Major container views  
+- Complex custom components
+- Views with performance concerns
 
-Verbose mode is especially useful for diagnosing complex issues in large applications.
+## Advanced Features
+
+### Verbose Mode
+Set `SWIFTUI_DEBUG_SCAN_VERBOSE=1` for detailed diagnostics:
+- 🧵 Call stack and thread info
+- 💾 Memory and CPU usage  
+- ⏱️ Performance timing
+- 📊 System metrics
 
 ## Installation
 
-Add this package to your project using Swift Package Manager:
-
+**Swift Package Manager:**
 ```swift
 dependencies: [
     .package(url: "https://github.com/ConsultingMD/swift-ui-debug-scan", from: "0.1.0")
 ]
 ```
 
-Then add the dependency to your target:
-
-```swift
-.target(
-    name: "YourTarget",
-    dependencies: [
-        .product(name: "SwiftUIDebugScan", package: "swift-ui-debug-scan")
-    ]
-)
-```
-
-Alternatively, you can add the package directly in Xcode:
-
-1. Open your project in Xcode.
-2. Navigate to `File > Add Packages`.
-3. Enter the repository URL: `https://github.com/ConsultingMD/swift-ui-debug-scan`.
-4. Choose the version or branch you want to use.
-5. Add the package to your desired target.
+**Xcode:** `File > Add Packages` → Enter URL above
 
 ## Contributing
 
-Contributions are welcome! If you have ideas for new features, improvements, or bug fixes, feel free to open an issue or submit a pull request.
+Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+**Quick fixes:** Fork → Change → Test → PR  
+**New features:** Open issue first to discuss
