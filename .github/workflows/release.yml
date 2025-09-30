@@ -12,7 +12,7 @@ jobs:
     
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       
     - name: Select Xcode Version
       run: sudo xcode-select -s /Applications/Xcode_16.1.app/Contents/Developer
