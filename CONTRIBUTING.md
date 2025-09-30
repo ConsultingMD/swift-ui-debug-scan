@@ -116,7 +116,6 @@ xcodebuild test -scheme SwiftUIDebugScan -destination 'platform=iOS Simulator,na
 - Place tests in the `Tests/SwiftUIDebugScanTests/` directory
 - Follow existing naming conventions (`*Tests.swift`)
 - Use descriptive test method names
-- Test edge cases and error conditions
 
 ### Test Categories
 
