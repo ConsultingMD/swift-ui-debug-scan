@@ -44,20 +44,6 @@ This document explains the Continuous Integration and Continuous Deployment setu
 - GitHub release creation with artifacts
 - Prerelease detection (alpha, beta, rc tags)
 
-### 4. Security Workflows (`.github/workflows/security.yml`) - CURRENTLY DISABLED
-
-**Status**: Commented out - requires Code Security/Code Scanning to be enabled
-**Triggers**: PRs, main branch pushes, and weekly schedule (when enabled)
-**Purpose**: Security scanning and vulnerability detection
-
-**Features (when enabled)**:
-- CodeQL static analysis for Swift code security
-- Weekly automated security scans
-- Integration with GitHub Security tab
-- SARIF output format for security findings
-
-**To enable**: Uncomment the workflow after enabling Code Scanning in repository settings
-
 ## Configuration Files
 
 ### Dependabot (`.github/dependabot.yml`)
@@ -78,28 +64,10 @@ This document explains the Continuous Integration and Continuous Deployment setu
 - Test files excluded from coverage
 - Branch detection for conditionals and loops
 
-## Key Features Inspired by member-ios-app
-
-1. **Comprehensive Testing**: Native macOS Swift testing with code coverage
-2. **Package Validation**: Swift package structure and dependency analysis
-3. **Caching**: Aggressive SPM caching for performance
-4. **Security**: CodeQL security scanning (currently disabled - enable Code Scanning in repo settings)
-5. **Release Automation**: Comprehensive release process with artifacts
-
 ## Environment Variables Used
 
 - `SWIFTUI_DEBUG_SCAN_VERBOSE`: Enables verbose test logging
 - `GITHUB_TOKEN`: For GitHub API access (automatic)
-- Various Codecov and security scanning tokens (configured via secrets)
-
-## Differences from Private Repository Patterns
-
-Since this is an open-source project, several adaptations were made:
-
-1. **No Private Dependencies**: No access to private certificate repos or internal tools
-2. **Simplified Release Process**: Using GitHub Releases instead of internal distribution
-3. **Public Security Scanning**: Using GitHub's built-in security features
-4. **Community Standards**: Following open-source contribution patterns
 
 ## Usage
 
@@ -127,5 +95,4 @@ swift build --configuration release
 
 - **CI Status**: Monitor via GitHub Actions tab
 - **Coverage**: Check Codecov reports on PRs
-- **Security**: Currently disabled (enable Code Scanning to activate)
 - **Dependencies**: Dependabot will create PRs for updates

@@ -205,7 +205,3 @@ Please be respectful and professional in all interactions. We strive to maintain
 ## Recognition
 
 Contributors are recognized in release notes and commit history. Significant contributions may be highlighted in the README or other project documentation.
-
----
-
-Thank you for contributing to swift-ui-debug-scan! Your efforts help make SwiftUI debugging better for the entire Swift community.
