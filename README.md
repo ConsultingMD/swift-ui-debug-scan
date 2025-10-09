@@ -14,9 +14,14 @@
 import SwiftUI
 import SwiftUIDebugScan
 
-struct ContentView: View {
+struct FeatureRootView: View {
     var body: some View {
-        Text("Hello World").debugScan("MainView")
+        List {
+            FeatureLeafView()
+            FeatureLeafView()
+            FeatureLeafView()
+        }
+        .debugScan("FeatureListView")
     }
 }
 ```
@@ -32,10 +37,10 @@ struct ContentView: View {
 
 ## Why Use This?
 
-- 🔍 **View Metadata**: Track file, module, and render counts
-- 🐛 **Debug Complex UIs**: Essential for large, server-driven applications  
-- ⚡ **Performance Insights**: Identify over-rendering and optimization opportunities
-- 🎯 **Targeted Debugging**: Focus on root views without log noise
+- **View Metadata**: Track file, module, and render counts
+- **Debug Complex UIs**: Essential for large, server-driven applications  
+- **Performance Insights**: Identify over-rendering and optimization opportunities
+- **Targeted Debugging**: Focus on root views without log noise
 
 
 ## Usage Best Practices
