@@ -21,7 +21,7 @@ struct FeatureRootView: View {
             FeatureLeafView()
             FeatureLeafView()
         }
-        .debugScan("FeatureListView")
+        .debugScan("FeatureRootView")
     }
 }
 ```
