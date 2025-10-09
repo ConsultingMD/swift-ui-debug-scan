@@ -29,8 +29,8 @@ struct FeatureRootView: View {
 **Console Output:**
 ```
 🧩 [MainView]
-    • 📂 file: ContentView.swift
-    • 📚 module: MyApp
+    • 📂 file: FeatureRootView.swift
+    • 📚 module: Feature
     • 🎨 redraws: 1
     • ⏱️ timestamp: 2025-07-21 14:05:40 +0000
 ```
