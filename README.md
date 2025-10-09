@@ -28,7 +28,7 @@ struct FeatureRootView: View {
 
 **Console Output:**
 ```
-🧩 [MainView]
+🧩 [FeatureRootView]
     • 📂 file: FeatureRootView.swift
     • 📚 module: Feature
     • 🎨 redraws: 1
