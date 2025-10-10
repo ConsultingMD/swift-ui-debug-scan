@@ -25,7 +25,6 @@ let package = Package(
             dependencies: [],
             swiftSettings: [
                 .enableExperimentalFeature("StrictConcurrency"),
-                .define("BUILD_LIBRARY_FOR_DISTRIBUTION", .when(configuration: .release)),
             ]
         ),
         .testTarget(
