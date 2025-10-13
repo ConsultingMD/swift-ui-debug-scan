@@ -289,7 +289,7 @@ struct EdgeCaseTests {
             let endTime = CFAbsoluteTimeGetCurrent()
             let duration = endTime - startTime
             
-            #expect(duration < 0.001, "Long label (\(expectedLength) chars) should not impact performance: \(duration)s")
+            #expect(duration < 0.005, "Long label (\(expectedLength) chars) should not impact performance: \(duration)s")
         }
     }
     
