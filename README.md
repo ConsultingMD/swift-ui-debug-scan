@@ -58,7 +58,7 @@ NavigationView {
 Text("Button").debugScan("ButtonText")
 ```
 
-**💡 Recommended targets:**
+** Recommended targets:**
 - Screen root views
 - Major container views  
 - Complex custom components
@@ -75,14 +75,18 @@ Set `SWIFTUI_DEBUG_SCAN_VERBOSE=1` for detailed diagnostics:
 
 ## Installation
 
-**Swift Package Manager:**
+### Option 1: Swift Package Manager (Recommended)
 ```swift
 dependencies: [
     .package(url: "https://github.com/ConsultingMD/swift-ui-debug-scan", from: "0.1.0")
 ]
 ```
-
 **Xcode:** `File > Add Packages` → Enter URL above
+
+### Option 2: Direct File Integration (Zero Dependencies)
+1. Download [`DebugScan.swift`](Sources/SwiftUIDebugScan/DebugScan.swift)
+2. Drag the file into your project
+3. Skip the `import SwiftUIDebugScan` line - start using `.debugScan()` immediately
 
 ## Contributing
 
