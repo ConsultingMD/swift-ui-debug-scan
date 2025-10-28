@@ -78,7 +78,7 @@ Set `SWIFTUI_DEBUG_SCAN_VERBOSE=1` for detailed diagnostics:
 ### Option 1: Swift Package Manager (Recommended)
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ConsultingMD/swift-ui-debug-scan", from: "0.1.0")
+    .package(url: "https://github.com/ConsultingMD/swift-ui-debug-scan", from: "0.2.0")
 ]
 ```
 **Xcode:** `File > Add Packages` → Enter URL above
