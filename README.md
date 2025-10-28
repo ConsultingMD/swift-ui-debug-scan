@@ -54,11 +54,11 @@ NavigationView {
 
 **❌ Avoid on leaf views:**
 ```swift
-// Don't do this - too much noise
+// Avoid - creates excessive log output
 Text("Button").debugScan("ButtonText")
 ```
 
-** Recommended targets:**
+**Recommended targets:**
 - Screen root views
 - Major container views  
 - Complex custom components
