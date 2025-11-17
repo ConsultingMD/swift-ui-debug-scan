@@ -167,6 +167,8 @@ public extension View {
     ///   - filePath: The full file path where the view is defined. Defaults to the current file path (`#filePath`).
     ///
     /// - Returns: A modified view with debug instrumentation applied.
+    ///
+    /// - SeeAlso: `debugScan(_:file:fileID:filePath:)` for the type-based variant that automatically derives labels from view types.
     func debugScan(
         _ label: String,
         file: StaticString = #file,
@@ -176,6 +178,42 @@ public extension View {
         modifier(
             ViewInstrumentationModifier(
                 label: label,
+                file: file,
+                fileID: fileID,
+                filePath: filePath
+            )
+        )
+    }
+
+    /// Adds a debug instrumentation modifier to the view for logging and tracking render information using type-based labeling.
+    ///
+    /// This type-safe variant of `debugScan` derives the debug label from the specified view type, providing
+    /// a more robust and refactor-friendly approach to view debugging. The modifier logs details such as the file,
+    /// module, redraw count, and timestamp for each render pass, using the view's type name as the identifier.
+    ///
+    /// - Important: For the best logging experience, it is recommended to apply this modifier to **root views**
+    ///   (e.g., the top-level view in your view hierarchy) rather than leaf views. Applying it to root views ensures
+    ///   that you capture the most meaningful and comprehensive debug information.
+    ///
+    /// - Parameters:
+    ///   - label: The type to use for generating the debug label. The label will be generated using `String(describing: label)`.
+    ///            Pass the view's type (e.g., `Text.self`, `MyCustomView.self`) to get meaningful debug labels.
+    ///   - file: The file where the view is defined. Defaults to the current file (`#file`).
+    ///   - fileID: The file ID where the view is defined. Defaults to the current file ID (`#fileID`).
+    ///   - filePath: The full file path where the view is defined. Defaults to the current file path (`#filePath`).
+    ///
+    /// - Returns: A modified view with debug instrumentation applied, using the type-derived label.
+    ///
+    /// - SeeAlso: `debugScan(_:file:fileID:filePath:)` for the string-based variant that allows custom labels.
+    func debugScan(
+        _ label: (some View).Type,
+        file: StaticString = #file,
+        fileID: StaticString = #fileID,
+        filePath: StaticString = #filePath
+    ) -> some View {
+        modifier(
+            ViewInstrumentationModifier(
+                label: String(describing: label),
                 file: file,
                 fileID: fileID,
                 filePath: filePath
