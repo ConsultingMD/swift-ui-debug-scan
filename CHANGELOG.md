@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [0.3.0] - 2025-11-17
+### Added
+- Type-based `debugScan` modifier sibling function for type-safe view debugging
+  - New overload: `debugScan(_ label: (some View).Type)` that derives labels from Swift types
+  - Uses `String(describing:)` to automatically generate consistent debug labels from view types
+  - Provides type-safety and refactor-resilience compared to manual string labels
+  - Requires explicit type specification (e.g., `Text.self`, `MyCustomView.self`) to avoid Swift type inference issues
+  - Comprehensive test coverage with 6 additional test cases covering type resolution, custom views, and explicit type specification
+- Enhanced documentation for both string-based and type-based `debugScan` variants with cross-references
+
 ## [0.2.0] - 2025-10-28
 ### Added
 - Comprehensive test suite with 800+ lines of test code
