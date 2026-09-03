@@ -1,0 +1,5 @@
+name: swift-ui-debug-scan
+type: GuardRails
+apiVersion: v1
+spec:
+  coverage: {}
